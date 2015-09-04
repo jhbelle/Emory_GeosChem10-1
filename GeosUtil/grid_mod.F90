@@ -723,8 +723,8 @@ CONTAINS
     LOGICAL,  INTENT(IN)   :: am_I_Root      ! Root CPU?
     INTEGER,  INTENT(IN)   :: NX             ! # of lons
     INTEGER,  INTENT(IN)   :: NY             ! # of lats
-    REAL(f4), INTENT(IN)   :: lonCtr(NX,NY)  ! Lon ctrs [deg]
-    REAL(f4), INTENT(IN)   :: latCtr(NX,NY)  ! Lat ctrs [deg]
+    REAL(f4), INTENT(IN)   :: lonCtr(NX,NY)  ! Lon ctrs [rad.]
+    REAL(f4), INTENT(IN)   :: latCtr(NX,NY)  ! Lat ctrs [rad.]
 !
 ! !INPUT/OUTPUT PARAMETERS:
 !
@@ -770,31 +770,30 @@ CONTAINS
        ! Mid points: get directly from passed value
        XMID(I,J,L)      = RoundOff( lonCtr(I,J) / PI_180, 4 )
        YMID(I,J,L)      = RoundOff( latCtr(I,J) / PI_180, 4 )
-       YMID_R(I,J,L)    = YMID(I,J,L) * PI_180 
-
+       YMID_R(I,J,L)    = latCtr(I,J)
        IF ( ALLOCATED(YMID_R_W) ) THEN
           YMID_R_W(I,J,L)  = YMID_R(I,J,L)
        ENDIF
 
        ! Edges: approximate from neighboring mid points.
        IF ( I == 1 ) THEN
-          XEDGE(I,J,L) = XMID(I,J,L) - ( ( XMID(I+1,J,L) - XMID(I,J,L) ) / 2.0_f4 )
+          XEDGE(I,  J,L) = XMID(I,J,L) - abs( ( XMID(I+1,J,L) - XMID(I,J,L) ) / 2.0_f4 )
        ELSE
           XEDGE(I,J,L) = ( XMID(I,J,L) + XMID(I-1,J,L) ) / 2.0_f4
        ENDIF
 
        IF ( J == 1 ) THEN
-          YEDGE(I,J,L) = YMID(I,J,L) - ( ( YMID(I,J+1,L) - YMID(I,J,L) ) / 2.0_f4 )
+          YEDGE(I,J,  L) = YMID(I,J,L) - abs( ( YMID(I,J+1,L) - YMID(I,J,L) ) / 2.0_f4 )
        ELSE
           YEDGE(I,J,L) = ( YMID(I,J,L) + YMID(I,J-1,L) ) / 2.0_f4
        ENDIF
 
        ! Special treatment at uppermost edge
        IF ( I == NI ) THEN
-          XEDGE(I+1,J,L) = XMID(I,J,L) + ( ( XMID(I,J,L) - XMID(I-1,J,L) ) / 2.0_f4 )
+          XEDGE(I+1,J,L) = XMID(I,J,L) + abs( ( XMID(I,J,L) - XMID(I-1,J,L) ) / 2.0_f4 )
        ENDIF
        IF ( J == NJ ) THEN
-          YEDGE(I,J+1,L) = YMID(I,J,L) + ( ( YMID(I,J,L) - YMID(I,J-1,L) ) / 2.0_f4 )
+          YEDGE(I,J+1,L) = YMID(I,J,L) + abs( ( YMID(I,J,L) - YMID(I,J-1,L) ) / 2.0_f4 )
        ENDIF
 
        ! Special quantities directly derived from YEDGE
@@ -995,15 +994,11 @@ CONTAINS
 !
 ! !REVISION HISTORY:
 !  24 Feb 2012 - R. Yantosca - Initial version
-!  09 Jun 2015 - C. Keller   - Now ensure that -180.0 <= x < +180.0.
 !EOP
 !------------------------------------------------------------------------------
 !BOC
 
     X = XMID(I,J,1)
-
-    ! Make sure value is between -180 and +180
-    IF ( X >= 180.0_fp ) X = X - 360.0_fp
 
   END FUNCTION Get_xMid
 !EOC
@@ -1034,15 +1029,11 @@ CONTAINS
 !
 ! !REVISION HISTORY:
 !  24 Feb 2012 - R. Yantosca - Initial version
-!  09 Jun 2015 - C. Keller   - Now ensure that -180.0 <= x < +180.0.
 !EOP
 !------------------------------------------------------------------------------
 !BOC
 
     X = XEDGE(I,J,1)
-
-    ! Make sure value is between -180 and +180
-    IF ( X >= 180.0_fp ) X = X - 360.0_fp
 
   END FUNCTION Get_xEdge
 !EOC
