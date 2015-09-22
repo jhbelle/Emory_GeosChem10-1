@@ -553,8 +553,7 @@ CONTAINS
 #if defined( DEVEL )
                    ! Archive deposition flux in kg/m2/s
                    DEP(I,J,N) = DEP(I,J,N) + ( FLUX / AREA_M2 / TS )
-                   TOTDEP(N)  = TOTDEP(N)  + FLUX
-                   TOTFLUX(N) = TOTFLUX(N) + FLUX
+                   TOTDEP(N)  = TOTDEP(N) + FLUX
 #endif
 !                   IF (AREA_M2 .eq. 0.0_fp) THEN
 !                     PRINT*, "FLUX: ", FLUX

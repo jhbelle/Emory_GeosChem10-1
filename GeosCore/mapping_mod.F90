@@ -283,12 +283,12 @@ CONTAINS
     
     ! OV1 is the greater of OX1 and NX1
     ! OV2 is the lesser of OX2 and NX2
-    ov1 = MAX( ox1, min(nx1,nx2) )
-    ov2 = MIN( max(nx1,nx2), ox2 )
+    ov1 = MAX( ox1, nx1 )
+    ov2 = MIN( nx2, ox2 )
     
     ! XOVERLAP is the fraction of the old (fine) grid box that 
     ! occupies the new (coarse) grid box in the longitude
-    xOverLap = abs( ov2 - ov1 ) / abs( ox2 - ox1 )
+    xOverLap = ( ov2 - ov1 ) / ( ox2 - ox1 )
     
     ! If XOVERLAP is not in the range of 0-1, then it means that the "fine" 
     ! grid box lies completely outside the "coarse" grid box (in longitude).
@@ -309,12 +309,12 @@ CONTAINS
      
     ! OV1 is the greater of OY1 and NY1
     ! OV2 is the lesser of OY2 and NY2
-    ov1 = MAX( oy1, min(ny1,ny2) )
-    ov2 = MIN( max(ny1,ny2), oy2 )
+    ov1 = MAX( oy1, ny1 )
+    ov2 = MIN( ny2, oy2 )
     
     ! YOVERLAP is the fraction of the old (fine) grid box that 
     ! occupies the new (coarse) grid box in latitude 
-    yoverlap = abs( ov2 - ov1 ) / abs( oy2 - oy1 )
+    yoverlap = ( ov2 - ov1 ) / ( oy2 - oy1 )
     
     ! If YOVERLAP is not in the range of 0-1, then it means that the "fine" 
     ! grid box lies completely outside the "coarse" grid box (in latitude).
