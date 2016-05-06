@@ -157,11 +157,10 @@
 
       ! Copy values from Input_Opt to local variables
       LKPP    = Input_Opt%LKPP
-
+      
       ! Initialize
       IRCHEM  = IRCHEM + 1
-      TIME    = TIME        + CHEMINTV
-      TSPMIDC = MOD(TSPMIDC + CHEMINTV,SCDAY) 
+      TIME    = TIME + CHEMINTV
       COUNTER = 0
 
       ! Return if we have turned off SMVGEAR

@@ -4495,7 +4495,7 @@
             DEPNAME(NUMDEP) = 'SO4S'
             HSTAR(NUMDEP)   = 0.0e+0_f8
             F0(NUMDEP)      = 0.0e+0_f8
-            XMW(NUMDEP)     = 36e-3_f8                   ! MW of seasalt
+            XMW(NUMDEP)     = 314e-4_f8                   ! MW of seasalt
             A_RADI(NUMDEP)  = ( Input_Opt%SALC_REDGE_um(1) + 
      &                          Input_Opt%SALC_REDGE_um(2) ) * 0.5e-6_f8
             A_DEN(NUMDEP)   = 2200.e+0_f8 
@@ -4553,7 +4553,7 @@
             DEPNAME(NUMDEP) = 'NITS'
             HSTAR(NUMDEP)   = 0.0e+0_f8 
             F0(NUMDEP)      = 0.0e+0_f8
-            XMW(NUMDEP)     = 36e-3_f8                   ! MW of seasalt
+            XMW(NUMDEP)     = 314e-4_f8                   ! MW of seasalt
             A_RADI(NUMDEP)  = ( Input_Opt%SALC_REDGE_um(1) + 
      &                          Input_Opt%SALC_REDGE_um(2) ) * 0.5e-6_f8
             A_DEN(NUMDEP)   = 2200.e+0_f8 
@@ -5072,7 +5072,7 @@
             DEPNAME(NUMDEP) = 'SALA'
             HSTAR(NUMDEP)   = 0.0e+0_f8
             F0(NUMDEP)      = 0.0e+0_f8
-            XMW(NUMDEP)     = 36e-3_f8     
+            XMW(NUMDEP)     = 314e-4_f8     
             A_RADI(NUMDEP)  = ( Input_Opt%SALA_REDGE_um(1) + 
      &                          Input_Opt%SALA_REDGE_um(2) ) * 0.5e-6_f8
             A_DEN(NUMDEP)   = 2200.e+0_f8         
@@ -5086,7 +5086,7 @@
             DEPNAME(NUMDEP) = 'SALC'
             HSTAR(NUMDEP)   = 0.0e+0_f8
             F0(NUMDEP)      = 0.0e+0_f8
-            XMW(NUMDEP)     = 36e-3_f8 
+            XMW(NUMDEP)     = 314e-4_f8 
             A_RADI(NUMDEP)  = ( Input_Opt%SALC_REDGE_um(1) + 
      &                          Input_Opt%SALC_REDGE_um(2) ) * 0.5e-6_f8
             A_DEN(NUMDEP)   = 2200.e+0_f8         

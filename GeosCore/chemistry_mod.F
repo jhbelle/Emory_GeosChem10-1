@@ -1146,9 +1146,11 @@
 
       ! Assume success
       RC                   = GIGC_SUCCESS
-
+      
       IF ( FIRST ) THEN
-
+      
+         TIME = 0.0_fp
+         
          ! Init chem mechanism and photolysis
          CALL READER  ( FIRST, am_I_Root                           )
          CALL READCHEM(        am_I_Root, Input_Opt,            RC )
