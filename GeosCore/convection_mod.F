@@ -2637,6 +2637,13 @@
                      ALPHA   = ( REEVAPCN(K) * AD(K)          )
      &                       / ( PDOWN(K+1)  * AREA_M2 * 10e+0_fp )
 
+                     ! Restrict ALPHA to be less than 1 
+                     ! (>1 is unphysical)  (jhb, 10-May-2016) This
+                     ! restrictions was missing in this section  
+                     IF ( ALPHA > 1e+0_fp ) THEN 
+                        ALPHA = 1e+0_fp
+                     ENDIF
+
                      ! ALPHA2 is the fraction of the rained-out aerosols
                      ! that gets resuspended in grid box (I,J,L)
                      ALPHA2  = 0.5e+0_fp * ALPHA
