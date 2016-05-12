@@ -50,10 +50,10 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executable files
-#make realclean
+make realclean
 # Compile 2x2.5 full chemistry simulation using geos-fp
 #make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br
-#make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
+make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 # Change permissions in run directory
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_2x25_tropchem/*
 # Copy executable over to run directory
@@ -66,43 +66,43 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executable files
-make realclean
+#make realclean
 # Compile 2x2.5 full chemistry run using geos-5
-make -j4 MET=geos5 GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geos5 GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br
 # Change permissions in run directory
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_2x25_tropchem/*
 # Copy executable over to run directory
-cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_2x25_tropchem
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_2x25_tropchem
 
 ## ----
 ## 0.5x0.666 NA full chemmistry run: Used for production runs
 ## ----
 
 # Clean out any old executables
-make realclean
+#make realclean
 # Compile 0.5x0.666 NA GEOS-5 full chemistry
-make -j4 MET=geos5 GRID=05x0666 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geos5 GRID=05x0666 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
 # Change permissions in run directory
-chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na/*
+#chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na/*
 # Copy executable over to run directory
-cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
 # Make folder usable by other users
-chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
+#chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
 
 ## ----
 ## 0.5x0.666 CH tropchem run: Used for production runs
 ## ----
 
 # Clean out old executables
-make realclean
+#make realclean
 # Compile 0.5x0.666 CH GEOS-5 full chemistry executable
-make -j4 MET=geos5 GRID=05x0666 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geos5 GRID=05x0666 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
 # Change permissions for files in run directory
-chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch/*
+#chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch/*
 # Copy executable over to run directory
-cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
 # Change folder permissions
-chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
+#chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
 
 ## ----
 ## 0.25x0.3125 NA full chemistry run: Used for production runs

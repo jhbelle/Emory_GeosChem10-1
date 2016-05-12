@@ -2075,12 +2075,13 @@
       REAL(fp)            :: LOST,        GAINED,   WETLOSS, MASS_WASH
       REAL(fp)            :: MASS_NOWASH, QDOWN,    DT,      F_WASHOUT
       REAL(fp)            :: K_RAIN,      WASHFRAC, WET_Hg2, WET_HgP 
-      REAL(fp)            :: MB,          QB
+      REAL(fp)            :: MB,          QB,       QB_NUM
 
       ! Arrays
       REAL(fp)            :: BMASS    (LLPAR        )    
       REAL(fp)            :: PDOWN    (LLPAR        )
-      REAL(fp)            :: QB_NUM   (N_TRACERS    )
+      !REAL(fp)            :: QB_NUM   (N_TRACERS    )
+      REAL(fp)            :: DELP     (LLPAR        )
 
       ! Pointers
       REAL(fp),  POINTER  :: AD       (:            )
@@ -2186,7 +2187,7 @@
 
       ! Zero variables
       MB      = 0e+0_fp
-      QB_NUM  = 0e+0_fp
+      !QB_NUM  = 0e+0_fp
 
       ! Loop over up to just below the cloud base
       DO K  = 1, CLDBASE-1
@@ -2195,7 +2196,8 @@
          MB        = MB + BMASS(K)
 
          ! numerator of QB
-         QB_NUM(:) = QB_NUM(:) + Q(K,:) * ( PEDGE(K) - PEDGE(K+1) )
+         !QB_NUM(:) = QB_NUM(:) + Q(K,:) * ( PEDGE(K) - PEDGE(K+1) )
+         DELP(K) =  PEDGE(K) - PEDGE(K+1)
 
       ENDDO
 
@@ -2241,10 +2243,16 @@
                   !-----------------------------------------------------
                   ! %%% Non-negligible Cloud mass flux %%% 
                   !-----------------------------------------------------
+                  
+                  ! Fix to QB_NUM calculation to conserve mass
+                  QB_NUM = 0e+0_fp
+                  DO K = 1, CLDBASE-1
+                     QB_NUM = QB_NUM + Q(K,IC) * DELP(K)
+                  ENDDO
 
                   ! Compute the weighted avg mixing ratio below
                   ! the cloud base
-                  QB = QB_NUM(IC) / ( PEDGE(1) - PEDGE(CLDBASE) )
+                  QB = QB_NUM / ( PEDGE(1) - PEDGE(CLDBASE) )
 
                   !        Total mass of tracer below cloud base  +   
                   !        Subsidence into cloud base from above  
@@ -2654,8 +2662,8 @@
                      GAINED  = T0_SUM * ALPHA2
 
                      ! Amount of aerosol lost to washout in grid box
-                     WETLOSS = Q(K,IC) * BMASS(K) / TCVV * WASHFRAC -
-     &                         GAINED
+                     WETLOSS = ( Q(K,IC) * BMASS(K) / TCVV + GAINED ) * 
+     &                         WASHFRAC - GAINED
 
                      ! LOST is the rained out aerosol coming down from
                      ! grid box (I,J,L+1) that will remain in the liquid
