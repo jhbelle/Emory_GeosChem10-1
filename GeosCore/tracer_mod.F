@@ -282,9 +282,9 @@
          !---------------------------
          IF ( STT(I,J,L,N) < 0e+0_fp ) THEN 
 !$OMP CRITICAL
-            WRITE( 6, 100 ) I, J, L, N, STT(I,J,L,N)
-            PRINT*, 'Neg STT ' // TRIM( LOCATION ) //
-     &              '. SET STT TO BE ZERO.'
+            !WRITE( 6, 100 ) I, J, L, N, STT(I,J,L,N)
+            !PRINT*, 'Neg STT ' // TRIM( LOCATION ) //
+     !&              '. SET STT TO BE ZERO.'
             STT(I,J,L,N) = 0e+0_fp
 !$OMP END CRITICAL
 

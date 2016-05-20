@@ -16,6 +16,9 @@ source /home/jhbelle/.profile
 # All GEOS-FP geos executables for production runs (tropchem 2x2.5, and 0.25x0.3125 NA/CH) were recompiled after changes to the source code to fix an issue with cloud convection specific to GEOS-FP simulations - 05/02/2016.
 # hcox_finn_mod.F90 replaced with new version; hcox_tools_mod.F90 was added to HEMCO/Extensions - 05/09/2016 - recompiling 4x5 tropchem model for testing of emissions - Fail - No longer using FINN issue unfixed
 # Alpha for washout of aerosol tracers was constrainted to be less than 1 in GeosCore/convection_mod.F - 05/10/2016 and source was recompiled for geosfp 2x25 tropchem for testing
+# Fixed two additional bugs in DO_MERRA_CONVECTION - and recompiled executables for geosfp production runs - 05/12/2016
+# Source code edited on 05/20/2016 to add additional checks on negative tracer concentrations into code for geos5 0.5x0.666 runs to try to isolate when negative ozone concentrations are happening - code reverted same day
+# Source code edited to remove write/print statements to log for negative tracers in STT and recompiled for 0.5x0.666 models - 05/20/2016
 ## ---------------------
 
 ## ----
@@ -50,16 +53,16 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executable files
-make realclean
+#make realclean
 # Compile 2x2.5 full chemistry simulation using geos-fp
 #make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br
-make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
+#make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 # Change permissions in run directory
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_2x25_tropchem/*
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/geosfp_2x25_tropchem
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_2x25_tropchem
-#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_2x25_tropchem/geos_convfix
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_2x25_tropchem/geos
 
 ## ----
 ## 2x2.5 full chemistry run (geos-5): Used for production runs and to generate boundary condition files for NA and CH nested runs
@@ -75,17 +78,20 @@ make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_2x25_tropchem
 
 ## ----
-## 0.5x0.666 NA full chemmistry run: Used for production runs
+## 0.5x0.666 NA full chemistry run: Used for production runs
 ## ----
 
 # Clean out any old executables
-#make realclean
+make realclean
 # Compile 0.5x0.666 NA GEOS-5 full chemistry
-#make -j4 MET=geos5 GRID=05x0666 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
+make -j4 MET=geos5 GRID=05x0666 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geos5 GRID=05x0666 NEST=NA CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes TRACEBACK=yes 
 # Change permissions in run directory
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na/*
 # Copy executable over to run directory
-#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
+cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
+cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na_09Start
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na_TestChemOff/geos_test
 # Make folder usable by other users
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_na
 
@@ -94,13 +100,13 @@ make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 ## ----
 
 # Clean out old executables
-#make realclean
+make realclean
 # Compile 0.5x0.666 CH GEOS-5 full chemistry executable
-#make -j4 MET=geos5 GRID=05x0666 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
+make -j4 MET=geos5 GRID=05x0666 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
 # Change permissions for files in run directory
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch/*
 # Copy executable over to run directory
-#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
+cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
 # Change folder permissions
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geos5_05x0666_tropchem_ch
 
@@ -117,6 +123,7 @@ make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_na
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
+#chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
 
 ## ----
 ## 0.25x0.3125 CH full chemistry run: Used for production runs
@@ -131,7 +138,7 @@ make -j4 MET=geosfp GRID=2x25 CHEM=NOx_Ox_HC_Aer_Br DEBUG=yes BOUNDS=yes
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_ch
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
-
+#chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
 
 ## ----
 ## 2x2.5 full chemistry run (geos-fp) + SOAs: Used for production runs and to generate boundary condition files for NA and CH nested runs
