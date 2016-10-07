@@ -20,6 +20,7 @@ source /home/jhbelle/.profile
 # Source code edited on 05/20/2016 to add additional checks on negative tracer concentrations into code for geos5 0.5x0.666 runs to try to isolate when negative ozone concentrations are happening - code reverted same day
 # Source code edited to remove write/print statements to log for negative tracers in STT and recompiled for 0.5x0.666 models - 05/20/2016
 # Same edit as above made to 0.25x0.3125 for GeosFP runs on 05/25/2016 and code was recompiled.
+# Recompiled geosfp 2x25 and 0.25x0.3125_CH  
 ## ---------------------
 
 ## ----
@@ -116,14 +117,14 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executables
-make realclean
+#make realclean
 # Compile 0.25x0.333 NA GEOS-FP full chemistry
-make -j4 MET=geosfp GRID=025x03125 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geosfp GRID=025x03125 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
 # Make sure all files in run directory are writable by all users
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na/*
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_na
-cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
+#cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
 
 ## ----
@@ -138,7 +139,7 @@ make -j4 MET=geosfp GRID=025x03125 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch/*
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_ch
-cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
+cp /aqua/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
 
 ## ----

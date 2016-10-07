@@ -406,6 +406,10 @@
          ! Error check
          IF (ABS(SUM( F_OF_PBL(I,J,:) ) - 1.e+0_fp) > 1.e-3_fp) THEN
             PRINT*, 'bad sum at: ', I, J
+            PRINT*, 'Value of sum(F_OF_PBL): ', SUM( F_OF_PBL(I,J,:) )
+            PRINT*, 'PBL height (hPa): ', BLTOP
+            PRINT*, 'Surface height (hPa): ', P(0)
+            PRINT*, 'Scale height" ', SCALE_HEIGHT 
             CALL ERROR_STOP( 'Error in computing F_OF_PBL!',
      &                       'COMPUTE_PBL_HEIGHT ("pbl_mix_mod.f")' )
          ENDIF
