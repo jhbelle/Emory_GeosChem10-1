@@ -1635,12 +1635,12 @@ CONTAINS
     !---------------------------------------
 
     ! Constrained with simulated "climatology" for
-    ! April 2012 - Oct 2014. Will need to be updated as more
-    ! met fields become available (ltm, 2014-12-10).
-    IF ( ( cYr .eq. 2012 .and. cMt .ge. 4  ) .or. &
-         ( cYr .eq. 2013                   ) .or. &
-         ( cYr .eq. 2014 .and. cMt .le. 10 ) ) THEN
-       BETA = ANN_AVG_FLASHRATE / 260.40253d0
+    ! April 2012 - Apr 2016. Will need to be updated as more
+    ! met fields become available (ltm, 2016-10-07).
+    IF ( ( cYr .eq. 2012 .and. cMt .ge. 4    ) .or. &
+         ( cYr .ge. 2013 .and. cYr .le. 2015 ) .or. &
+         ( cYr .eq. 2016 .and. cMt .le. 4  ) ) THEN
+       BETA = ANN_AVG_FLASHRATE / 185.36d0
     ENDIF
 
 #elif defined( GEOS_FP ) && defined( GRID025x03125 ) && defined( NESTED_CH )
@@ -1660,16 +1660,16 @@ CONTAINS
 #elif defined( GEOS_FP ) && defined( GRID025x03125 ) && defined( NESTED_NA )
 
     !---------------------------------------
-    ! GEOS-FP: Nested SEAC4RS simulation
+    ! GEOS-FP: Nested North America simulation
     !---------------------------------------
 
     ! Constrained with simulated "climatology" for
-    ! April 2012 - Oct 2014. Will need to be updated as more
-    ! met fields become available (ltm, 2015-01-13).
-    IF ( ( cYr .eq. 2012 .and. cMt .ge. 4  ) .or. &
-         ( cYr .eq. 2013                   ) .or. &
-         ( cYr .eq. 2014 .and. cMt .le. 10 ) ) THEN
-       BETA = ANN_AVG_FLASHRATE / 720.10258d0
+    ! April 2012 - April 2016. Will need to be updated as more
+    ! met fields become available (ltm, 2016-10-07).
+    IF ( ( cYr .eq. 2012 .and. cMt .ge. 4    ) .or. &
+         ( cYr .ge. 2013 .and. cYr .le. 2015 ) .or. &
+         ( cYr .eq. 2016 .and. cMt .le. 4  ) ) THEN
+       BETA = ANN_AVG_FLASHRATE / 754.91d0
     ENDIF
 
 #elif defined( MERRA ) && defined( GRID2x25 )
@@ -1763,34 +1763,34 @@ CONTAINS
 
 #endif
 
-    !IF ( BETA == 1d0 ) THEN
+    IF ( BETA == 1d0 ) THEN
 
-     !  WRITE( *,* ) 'Your model framework has not had its'
-     !  WRITE( *,* ) 'lightnox code reprocessed for the correction'
-     ! WRITE( *,* ) 'to how CLDTOPS are calculated, probably due to'
-     !  WRITE( *,* ) 'the lack of your met fields at Harvard.'
-     !  WRITE( *,* ) ''
-     !  WRITE( *,* ) 'Please contact Lee Murray'
-     !  WRITE( *,* ) '(ltmurray@post.harvard.edu), who can help you'
-     !  WRITE( *,* ) 'prepare the necessary modifications and files'
-     !  WRITE( *,* ) 'to get lightnox working for you.'
-     !  WRITE( *,* ) ''
-     !  WRITE( *,* ) 'You may remove this trap in lightnox_nox_mod.f'
-     !  WRITE( *,* ) 'at your own peril, but be aware that the'
-     !  WRITE( *,* ) 'magnitude and distribution of lightnox may be'
-     !  WRITE( *,* ) 'unrealistic.'
-     !  WRITE( *,* ) ''
-     !  WRITE( *,* ) 'You can explicitly set the beta value in your'
-     !  WRITE( *,* ) 'HEMCO configuration file by adding it to the'
-     !  WRITE( *,* ) 'Lightning NOx settings:'
-     !  WRITE( *,* ) '# ExtNr ExtName            on/off Species'
-     !  WRITE( *,* ) '103     LightNOx         : on     NO'
-     !  WRITE( *,* ) '    --> OTD-LIS scaling  :        1.00e-3'
-     !    
-     !  CALL HCO_ERROR( 'Wrong beta - see information in standard output', RC )
-     !  RETURN        
+       WRITE( *,* ) 'Your model framework has not had its'
+       WRITE( *,* ) 'lightnox code reprocessed for the correction'
+       WRITE( *,* ) 'to how CLDTOPS are calculated, probably due to'
+       WRITE( *,* ) 'the lack of your met fields at Harvard.'
+       WRITE( *,* ) ''
+       WRITE( *,* ) 'Please contact Lee Murray'
+       WRITE( *,* ) '(ltmurray@post.harvard.edu), who can help you'
+       WRITE( *,* ) 'prepare the necessary modifications and files'
+       WRITE( *,* ) 'to get lightnox working for you.'
+       WRITE( *,* ) ''
+       WRITE( *,* ) 'You may remove this trap in lightnox_nox_mod.f'
+       WRITE( *,* ) 'at your own peril, but be aware that the'
+       WRITE( *,* ) 'magnitude and distribution of lightnox may be'
+       WRITE( *,* ) 'unrealistic.'
+       WRITE( *,* ) ''
+       WRITE( *,* ) 'You can explicitly set the beta value in your'
+       WRITE( *,* ) 'HEMCO configuration file by adding it to the'
+       WRITE( *,* ) 'Lightning NOx settings:'
+       WRITE( *,* ) '# ExtNr ExtName            on/off Species'
+       WRITE( *,* ) '103     LightNOx         : on     NO'
+       WRITE( *,* ) '    --> OTD-LIS scaling  :        1.00e-3'
+         
+       CALL HCO_ERROR( 'Wrong beta - see information in standard output', RC )
+       RETURN        
  
-!    ENDIF
+    ENDIF
 
     ! Return w/ success
     CALL HCO_LEAVE ( RC )
