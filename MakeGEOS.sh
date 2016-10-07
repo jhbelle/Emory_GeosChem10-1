@@ -65,6 +65,7 @@ source /home/jhbelle/.profile
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/geosfp_2x25_tropchem
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_2x25_tropchem
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_2x25_tropchem/geos
+#cp /aqua/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /gc_runs/geosfp_2x25_tropchem
 
 ## ----
 ## 2x2.5 full chemistry run (geos-5): Used for production runs and to generate boundary condition files for NA and CH nested runs
@@ -117,14 +118,15 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executables
-#make realclean
+make realclean
 # Compile 0.25x0.333 NA GEOS-FP full chemistry
-#make -j4 MET=geosfp GRID=025x03125 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
+make -j4 MET=geosfp GRID=025x03125 NEST=NA CHEM=NOx_Ox_HC_Aer_Br
 # Make sure all files in run directory are writable by all users
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na/*
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_na
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
+cp /aqua/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /gc_runs/geosfp_0025x03125_tropchem_na
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_na
 
 ## ----
@@ -132,14 +134,14 @@ source /home/jhbelle/.profile
 ## ----
 
 # Clean out any old executables
-make realclean
+#make realclean
 # Compile 0.25x0.333 CH GEOS-FP full chemistry
-make -j4 MET=geosfp GRID=025x03125 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
+#make -j4 MET=geosfp GRID=025x03125 NEST=CH CHEM=NOx_Ox_HC_Aer_Br
 # Make sure all files in run directory are writable by all users
 #chmod 666 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch/*
 # Copy executable over to run directory
 #cp /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/remotesensing1/Jess/GEOS_CHEM_10_1/RunDirTesting/FixMolWts/geosfp_025x03125_tropchem_ch
-cp /aqua/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
+#cp /aqua/Jess/GEOS_CHEM_10_1/Code.v10-01/bin/geos /aqua/Jess/GCRunDirs/geosfp_025x03125_tropchem_ch
 #chmod 777 /liu_group/climatechange2/GCRunDirs/geosfp_025x03125_tropchem_ch
 
 ## ----
