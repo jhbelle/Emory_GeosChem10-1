@@ -1068,9 +1068,9 @@
          CALL INTERP( NSECb, ELAPSED_TODAY,
      &                N_DYN, Input_Opt,     State_Met )
 
-         PRINT*, 'raw GMAO surface pressure t 1', State_Met%PS1(14,12)
-         PRINT*, 'raw GMAO surface pressure t 2', State_Met%PS2(14,12)
-         PRINT*, 'Interpolated surface pressure', State_Met%PSC2(14,12)
+         !PRINT*, 'raw GMAO surface pressure t 1', State_Met%PS1(14,12)
+         !PRINT*, 'raw GMAO surface pressure t 2', State_Met%PS2(14,12)
+         !PRINT*, 'Interpolated surface pressure', State_Met%PSC2(14,12)
          !PRINT*, 'Floating surface pressure', PFLT(14,12)
          ! Case of variable tropopause:
          ! Check LLTROP and set LMIN, LMAX, and LPAUSE
